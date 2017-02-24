@@ -1,0 +1,50 @@
+1.If 7TB is the available disk space per node (9 disks with 1 TB, 2 disk for operating system etc. were excluded.).
+Assuming initial data size is 600 TB. How will you estimate the number of data nodes (n)?
+
+HDFS has a formula for storage:
+
+H=C*R*S/(1-i)*120
+
+Where,
+C-Compression Ratio
+R-Replication Factor
+i-Intermediate Data factor
+S-initial data size
+
+Default parameter:
+c=1
+R=3(which is a default parameter)
+S=600TB (as mentioned)
+i=i/4
+
+When the values were were applied in the Storage HDFS formula
+H=1*3*S/(1-3/4)
+
+To calculate the data node we have Formula:
+n=H/d
+
+Where,
+d-Disk space available
+and the value of d=7TB
+
+n=4*S/d (Where H=4*S)
+n=4*600/7 (S=600)
+after calculating n becomes
+n=342.85
+n=343 (After rounding off)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+2.Imagine that you are uploading a file of 500MB into HDFS.100MB of data is successfully
+uploaded into HDFS and another client wants to read the uploaded data while the upload is still in
+progress. What will happen in such a scenario, will the 100 MB of data that is uploaded will it be
+displayed?
+
+
+* By default each block size in HDFS is 128MB.
+* In the given problem 500 blocks were given
+   so, N=500/128
+       N=4
+* In the given problem the data it is given as 500MB so, 
+  N=500/128=4
+* When 100MB of data is uploaded the whole data storage space is 128MB until the block is filled the data will be stored.
+* As well the read and write operation can take place at the same time so data integrity happens and no data will be displayed.
